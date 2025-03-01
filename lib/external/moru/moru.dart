@@ -13,17 +13,19 @@ void init() {
 
   // Register Dart logger to be called via FFI
   void log(Pointer<Void> buf, int len) {
-    var msg = buf.cast<Utf8>().toDartString();
-    if (msg.endsWith('\n')) {
-      msg = msg.substring(0, msg.length - 1);
+    try {
+      final msg = buf.cast<Utf8>().toDartString(length: len);
+      if (kDebugMode) {
+        debugPrint(msg);
+      }
+    } on FormatException catch (e) {
+      if (kDebugMode) {
+        debugPrint('Failed to decode log message: $e, skipped $len bytes');
+      }
+    } finally {
+      // we have the responsibility to free the buffer
+      _bindings.moru_log_ack(buf);
     }
-
-    if (kDebugMode) {
-      debugPrint(msg);
-    }
-
-    // we have the responsibility to free the buffer
-    _bindings.moru_log_ack(buf);
   }
   final logFunction = NativeCallable<NativeLogCallback>.listener(log);
   _bindings.moru_register_logger(logFunction.nativeFunction);
