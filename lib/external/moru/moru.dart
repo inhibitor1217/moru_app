@@ -3,7 +3,11 @@ import 'dart:io';
 
 import 'generated_bindings.dart';
 
-int sum(int a, int b) => _bindings.sum(a, b);
+void init() {
+  _bindings.moru_init();
+}
+
+void run() => _bindings.moru_run();
 
 const _libName = 'moru';
 

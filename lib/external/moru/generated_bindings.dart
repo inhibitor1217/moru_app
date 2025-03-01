@@ -26,19 +26,21 @@ class NativeLibrary {
           lookup)
       : _lookup = lookup;
 
-  int sum(
-    int a,
-    int b,
-  ) {
-    return _sum(
-      a,
-      b,
-    );
+  void moru_init() {
+    return _moru_init();
   }
 
-  late final _sumPtr =
-      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Int, ffi.Int)>>('sum');
-  late final _sum = _sumPtr.asFunction<int Function(int, int)>();
+  late final _moru_initPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function()>>('moru_init');
+  late final _moru_init = _moru_initPtr.asFunction<void Function()>();
+
+  void moru_run() {
+    return _moru_run();
+  }
+
+  late final _moru_runPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function()>>('moru_run');
+  late final _moru_run = _moru_runPtr.asFunction<void Function()>();
 }
 
 typedef __int8_t = ffi.SignedChar;
