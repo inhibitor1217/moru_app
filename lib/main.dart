@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'external/moru/moru.dart' as moru;
@@ -16,11 +18,24 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
+  Timer? _tick;
+
   @override
   void initState() {
     super.initState();
+
     moru.run();
-    moru.knownPeers();
+
+    _tick = Timer.periodic(const Duration(seconds: 5), (timer) {
+      final peers = moru.knownPeers();
+      debugPrint('Known peers: $peers');
+    });
+  }
+
+  @override
+  void dispose() {
+    _tick?.cancel();
+    super.dispose();
   }
 
   @override

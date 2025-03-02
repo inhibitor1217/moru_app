@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:ffi/ffi.dart';
 import 'package:flutter/foundation.dart';
+import 'package:moru_app/external/moru/discovery/ffi.pbserver.dart';
+import 'package:moru_app/external/moru/peer.dart';
 
 import 'generated_bindings.dart';
 
@@ -33,15 +35,42 @@ void init() {
 
 void run() => _bindings.moru_run();
 
-void knownPeers() {
-  final req = calloc<ffi_t>().ref;
-  final res = _bindings.moru_known_peers(req);
+List<Peer> knownPeers() {
+  final req = KnownPeersRequest();
+  final reqBuffer = req.writeToBuffer();
 
-  // clean up raw buffers used by FFI
-  calloc.free(req.data);
+  // allocate native memory for FFI
+  final reqData = calloc<Uint8>(reqBuffer.length);
+  reqData.asTypedList(reqBuffer.length).setAll(0, reqBuffer);
+  final reqParams = calloc<ffi_t>();
+  reqParams.ref.data = reqData.cast();
+  reqParams.ref.len = reqBuffer.length;
+
+  final res = _bindings.moru_known_peers(reqParams.ref);
+
+  if (res.data == nullptr) {
+    throw Exception('Failed to get known peers');
+  }
+  final resData = res.data.cast<Uint8>().asTypedList(res.len);
+  final knownPeersResult = KnownPeersResult.fromBuffer(resData);
+
+  // clean up allocated native memory used by FFI
+  calloc.free(reqData);
+  calloc.free(reqParams);
   if (res.data != nullptr) {
     calloc.free(res.data);
   }
+
+  return knownPeersResult.peers
+    .map((p) => Peer(
+      id: p.id,
+      sessionId: p.sessionId,
+      address: p.address,
+      username: p.username,
+      hostname: p.hostname,
+      role: p.role,
+    ))
+    .toList();
 }
 
 const _libName = 'moru';
