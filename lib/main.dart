@@ -20,6 +20,7 @@ class _MainAppState extends State<MainApp> {
   void initState() {
     super.initState();
     moru.run();
+    moru.knownPeers();
   }
 
   @override

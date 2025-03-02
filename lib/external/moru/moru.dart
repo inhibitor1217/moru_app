@@ -24,7 +24,7 @@ void init() {
       }
     } finally {
       // we have the responsibility to free the buffer
-      malloc.free(buf);
+      calloc.free(buf);
     }
   }
   final logFunction = NativeCallable<NativeLogCallback>.listener(log);
@@ -32,6 +32,17 @@ void init() {
 }
 
 void run() => _bindings.moru_run();
+
+void knownPeers() {
+  final req = calloc<ffi_t>().ref;
+  final res = _bindings.moru_known_peers(req);
+
+  // clean up raw buffers used by FFI
+  calloc.free(req.data);
+  if (res.data != nullptr) {
+    calloc.free(res.data);
+  }
+}
 
 const _libName = 'moru';
 
