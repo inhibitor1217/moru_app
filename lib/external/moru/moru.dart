@@ -24,7 +24,7 @@ void init() {
       }
     } finally {
       // we have the responsibility to free the buffer
-      _bindings.moru_log_ack(buf);
+      malloc.free(buf);
     }
   }
   final logFunction = NativeCallable<NativeLogCallback>.listener(log);

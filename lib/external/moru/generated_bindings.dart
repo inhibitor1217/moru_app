@@ -2417,20 +2417,6 @@ class NativeLibrary {
           'moru_register_logger');
   late final _moru_register_logger =
       _moru_register_loggerPtr.asFunction<void Function(log_write_t)>();
-
-  void moru_log_ack(
-    ffi.Pointer<ffi.Void> msg,
-  ) {
-    return _moru_log_ack(
-      msg,
-    );
-  }
-
-  late final _moru_log_ackPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-          'moru_log_ack');
-  late final _moru_log_ack =
-      _moru_log_ackPtr.asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 }
 
 typedef __int8_t = ffi.SignedChar;
