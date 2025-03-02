@@ -2417,6 +2417,19 @@ class NativeLibrary {
           'moru_register_logger');
   late final _moru_register_logger =
       _moru_register_loggerPtr.asFunction<void Function(log_write_t)>();
+
+  ffi_t moru_known_peers(
+    ffi_t req,
+  ) {
+    return _moru_known_peers(
+      req,
+    );
+  }
+
+  late final _moru_known_peersPtr =
+      _lookup<ffi.NativeFunction<ffi_t Function(ffi_t)>>('moru_known_peers');
+  late final _moru_known_peers =
+      _moru_known_peersPtr.asFunction<ffi_t Function(ffi_t)>();
 }
 
 typedef __int8_t = ffi.SignedChar;
@@ -3833,6 +3846,14 @@ typedef log_write_tFunction = ffi.Void Function(
 typedef Dartlog_write_tFunction = void Function(
     ffi.Pointer<ffi.Void> msg, int len);
 typedef log_write_t = ffi.Pointer<ffi.NativeFunction<log_write_tFunction>>;
+
+final class ffi_t extends ffi.Struct {
+  external ffi.Pointer<ffi.Void> data;
+
+  @ffi.Int()
+  external int len;
+}
+
 typedef GoInt8 = ffi.SignedChar;
 typedef DartGoInt8 = int;
 typedef GoUint8 = ffi.UnsignedChar;
