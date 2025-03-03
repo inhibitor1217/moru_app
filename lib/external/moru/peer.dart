@@ -42,12 +42,17 @@ class Peer {
   }
 }
 
-class DeviceId {
+class DeviceId implements Comparable<DeviceId> {
   final Uint8List raw;
 
   DeviceId({
     required this.raw,
   }) : assert(raw.length == 32);
+
+  @override
+  int compareTo(DeviceId other) {
+    return raw.toString().compareTo(other.raw.toString());
+  }
 
   @override
   String toString() {

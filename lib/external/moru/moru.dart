@@ -63,7 +63,7 @@ List<Peer> knownPeers() {
     calloc.free(res.data);
   }
 
-  return knownPeersResult.peers
+  final peers = knownPeersResult.peers
     .map((p) => Peer(
       id: Uint8List.fromList(p.id),
       sessionId: p.sessionId,
@@ -73,6 +73,10 @@ List<Peer> knownPeers() {
       role: p.role,
     ))
     .toList();
+
+  peers.sort((a, b) => a.id.compareTo(b.id));
+
+  return peers;
 }
 
 const _libName = 'moru';
