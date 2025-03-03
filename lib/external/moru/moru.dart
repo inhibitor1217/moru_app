@@ -20,11 +20,11 @@ void init() {
         .toDartString(length: len)
         .replaceAll('\n', '');
       if (kDebugMode) {
-        debugPrint(msg);
+        debugPrint('[libmoru] $msg');
       }
     } on FormatException catch (e) {
       if (kDebugMode) {
-        debugPrint('Failed to decode log message: $e, skipped $len bytes');
+        debugPrint('[libmoru] Failed to decode log message: $e, skipped $len bytes');
       }
     } finally {
       // we have the responsibility to free the buffer
@@ -65,7 +65,7 @@ List<Peer> knownPeers() {
 
   return knownPeersResult.peers
     .map((p) => Peer(
-      id: p.id,
+      id: Uint8List.fromList(p.id),
       sessionId: p.sessionId,
       address: p.address,
       username: p.username,
