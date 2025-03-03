@@ -19,21 +19,24 @@ const Message$json = {
   '2': [
     {'1': 'id', '3': 1, '4': 1, '5': 12, '10': 'id'},
     {'1': 'session_id', '3': 2, '4': 1, '5': 3, '10': 'sessionId'},
+    {'1': 'seqnum', '3': 3, '4': 1, '5': 3, '10': 'seqnum'},
+    {'1': 'timestamp', '3': 4, '4': 1, '5': 3, '10': 'timestamp'},
     {'1': 'announcement', '3': 10, '4': 1, '5': 11, '6': '.io.inhibitor.moru.discovery.Announcement', '9': 0, '10': 'announcement'},
   ],
   '8': [
     {'1': 'payload'},
   ],
   '9': [
-    {'1': 3, '2': 10},
+    {'1': 5, '2': 10},
   ],
 };
 
 /// Descriptor for `Message`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List messageDescriptor = $convert.base64Decode(
     'CgdNZXNzYWdlEg4KAmlkGAEgASgMUgJpZBIdCgpzZXNzaW9uX2lkGAIgASgDUglzZXNzaW9uSW'
-    'QSTwoMYW5ub3VuY2VtZW50GAogASgLMikuaW8uaW5oaWJpdG9yLm1vcnUuZGlzY292ZXJ5LkFu'
-    'bm91bmNlbWVudEgAUgxhbm5vdW5jZW1lbnRCCQoHcGF5bG9hZEoECAMQCg==');
+    'QSFgoGc2VxbnVtGAMgASgDUgZzZXFudW0SHAoJdGltZXN0YW1wGAQgASgDUgl0aW1lc3RhbXAS'
+    'TwoMYW5ub3VuY2VtZW50GAogASgLMikuaW8uaW5oaWJpdG9yLm1vcnUuZGlzY292ZXJ5LkFubm'
+    '91bmNlbWVudEgAUgxhbm5vdW5jZW1lbnRCCQoHcGF5bG9hZEoECAUQCg==');
 
 @$core.Deprecated('Use announcementDescriptor instead')
 const Announcement$json = {

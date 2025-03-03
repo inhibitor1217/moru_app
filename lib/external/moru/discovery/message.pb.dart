@@ -26,6 +26,8 @@ class Message extends $pb.GeneratedMessage {
   factory Message({
     $core.List<$core.int>? id,
     $fixnum.Int64? sessionId,
+    $fixnum.Int64? seqnum,
+    $fixnum.Int64? timestamp,
     Announcement? announcement,
   }) {
     final $result = create();
@@ -34,6 +36,12 @@ class Message extends $pb.GeneratedMessage {
     }
     if (sessionId != null) {
       $result.sessionId = sessionId;
+    }
+    if (seqnum != null) {
+      $result.seqnum = seqnum;
+    }
+    if (timestamp != null) {
+      $result.timestamp = timestamp;
     }
     if (announcement != null) {
       $result.announcement = announcement;
@@ -52,6 +60,8 @@ class Message extends $pb.GeneratedMessage {
     ..oo(0, [10])
     ..a<$core.List<$core.int>>(1, _omitFieldNames ? '' : 'id', $pb.PbFieldType.OY)
     ..aInt64(2, _omitFieldNames ? '' : 'sessionId')
+    ..aInt64(3, _omitFieldNames ? '' : 'seqnum')
+    ..aInt64(4, _omitFieldNames ? '' : 'timestamp')
     ..aOM<Announcement>(10, _omitFieldNames ? '' : 'announcement', subBuilder: Announcement.create)
     ..hasRequiredFields = false
   ;
@@ -98,16 +108,34 @@ class Message extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   void clearSessionId() => clearField(2);
 
+  @$pb.TagNumber(3)
+  $fixnum.Int64 get seqnum => $_getI64(2);
+  @$pb.TagNumber(3)
+  set seqnum($fixnum.Int64 v) { $_setInt64(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasSeqnum() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearSeqnum() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $fixnum.Int64 get timestamp => $_getI64(3);
+  @$pb.TagNumber(4)
+  set timestamp($fixnum.Int64 v) { $_setInt64(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasTimestamp() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearTimestamp() => clearField(4);
+
   @$pb.TagNumber(10)
-  Announcement get announcement => $_getN(2);
+  Announcement get announcement => $_getN(4);
   @$pb.TagNumber(10)
   set announcement(Announcement v) { setField(10, v); }
   @$pb.TagNumber(10)
-  $core.bool hasAnnouncement() => $_has(2);
+  $core.bool hasAnnouncement() => $_has(4);
   @$pb.TagNumber(10)
   void clearAnnouncement() => clearField(10);
   @$pb.TagNumber(10)
-  Announcement ensureAnnouncement() => $_ensure(2);
+  Announcement ensureAnnouncement() => $_ensure(4);
 }
 
 /// Announces a peer.
