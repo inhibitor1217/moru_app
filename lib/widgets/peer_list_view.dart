@@ -78,8 +78,7 @@ class _PeerCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(peer.id.shortRepresentation),
-            if (peer.isHost) ...[
-              const SizedBox(height: 4),
+            const SizedBox(height: 4),
               Text(
                 peer.address != null && peer.address!.isNotEmpty
                     ? peer.address!
@@ -87,11 +86,10 @@ class _PeerCard extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
-              ),
-            ],
+              )
           ],
         ),
-        isThreeLine: peer.isHost,
+        isThreeLine: true,
       ),
     );
   }
