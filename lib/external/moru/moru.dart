@@ -16,7 +16,9 @@ void init() {
   // Register Dart logger to be called via FFI
   void log(Pointer<Void> buf, int len) {
     try {
-      final msg = buf.cast<Utf8>().toDartString(length: len);
+      final msg = buf.cast<Utf8>()
+        .toDartString(length: len)
+        .replaceAll('\n', '');
       if (kDebugMode) {
         debugPrint(msg);
       }
