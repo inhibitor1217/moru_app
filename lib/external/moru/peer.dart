@@ -24,6 +24,22 @@ class Peer {
   String toString() {
     return 'Peer{id: $id, sessionId: $sessionId, address: $address, username: $username, hostname: $hostname, role: $role}';
   }
+
+  String get displayName {
+    final name = username ?? 'unknown';
+    if (hostname != null) {
+      return '$name@${hostname!}';
+    }
+    return name;
+  }
+
+  bool get isHost {
+    return role == 'host';
+  }
+
+  bool get isPeer {
+    return role == 'peer';
+  }
 }
 
 class DeviceId {
@@ -42,5 +58,9 @@ class DeviceId {
       onMatch: (m) => '${m.group(0)}-',
       onNonMatch: (n) => n,
     );
+  }
+
+  String get shortRepresentation {
+    return toString().substring(0, 8);
   }
 }

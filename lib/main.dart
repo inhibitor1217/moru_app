@@ -1,12 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:moru_app/widgets/peer_list_view.dart';
 
 import 'external/moru/moru.dart' as moru;
 
 void main() {
   moru.init();
-
   runApp(const MainApp());
 }
 
@@ -18,33 +16,26 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainAppState extends State<MainApp> {
-  Timer? _tick;
-
   @override
   void initState() {
     super.initState();
-
     moru.run();
-
-    _tick = Timer.periodic(const Duration(seconds: 5), (timer) {
-      final peers = moru.knownPeers();
-      debugPrint('Known peers: $peers');
-    });
-  }
-
-  @override
-  void dispose() {
-    _tick?.cancel();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+      ),
       home: Scaffold(
-        body: Center(
-          child: Text('Hello, World!'),
+        appBar: AppBar(
+          title: const Text('moru'),
+          centerTitle: true,
         ),
+        body: const PeerListView(),
       ),
     );
   }
